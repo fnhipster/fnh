@@ -370,6 +370,13 @@ function decorateTemplateAndTheme() {
   if (template) addClasses(document.body, template);
   const theme = getMetadata('theme');
   if (theme) addClasses(document.body, theme);
+
+  // add theme to html element
+  const htmlElem = document.documentElement;
+  const bg = getMetadata('background');
+  const color = getMetadata('color');
+  if (bg) htmlElem.style.setProperty('--color-bg', bg);
+  if (color) htmlElem.style.setProperty('--color-fg', color);
 }
 
 /**
