@@ -31,7 +31,7 @@
 html {
   font-size: 10px;
   padding: 0 var(--margin);
-  max-width: 1200px;
+  max-width: 96rem;
   height: 100%;
   margin: 0 auto;
 }

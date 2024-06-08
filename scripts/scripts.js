@@ -5,6 +5,8 @@ import {
   loadFooter,
   decorateButtons,
   decorateIcons,
+  decorateImages,
+  decorateLinks,
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
@@ -12,6 +14,8 @@ import {
   loadBlocks,
   loadCSS,
 } from './aem.js';
+
+import './dropins.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -67,6 +71,8 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateImages(main);
+  decorateLinks(main);
 }
 
 /**

@@ -12,6 +12,9 @@
 
 /* eslint-env browser */
 
+import { render } from "@fnhipster/ui/render.js";
+import { Image, Link } from '@fnhipster/ui/components.js';
+
 /**
  * log RUM if part of the sample.
  * @param {string} checkpoint identifies the checkpoint in funnel
@@ -475,6 +478,42 @@ function decorateIcon(span, prefix = '', alt = '') {
   img.alt = alt;
   img.loading = 'lazy';
   span.append(img);
+}
+
+/**
+ * Wrap images in a Image component.
+ * @param {Element} [element] Element containing images
+ */
+export function decorateImages(element) {
+  const images = [...element.querySelectorAll('picture')];
+  images.forEach((image) => {
+    const html = image.outerHTML;
+    const div = document.createElement('div');
+    image.replaceWith(div);
+
+    render.render(Image, {
+      dangerouslySetInnerHTML: { __html: html },
+    })(div);
+  });
+}
+
+/**
+ * Wrap links in a Link component.
+ * @param {Element} [element] Element containing anchor tags
+ */
+export function decorateLinks(element) {
+  const links = [...element.querySelectorAll('a')];
+  links.forEach((anchor) => {
+    const { href, text, title = anchor.textContent} = anchor;
+    const span = document.createElement('span');
+    anchor.replaceWith(span);
+
+    render.render(Link, {
+      children: text,
+      href,
+      title,
+    })(span);
+  });
 }
 
 /**
