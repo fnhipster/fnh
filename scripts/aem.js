@@ -12,6 +12,7 @@
 
 /* eslint-env browser */
 
+import { h } from "@dropins/tools/preact.js";
 import { render } from "@fnhipster/ui/render.js";
 import { Image, Link } from '@fnhipster/ui/components.js';
 
@@ -486,13 +487,13 @@ function decorateIcon(span, prefix = '', alt = '') {
  */
 export function decorateImages(element) {
   const images = [...element.querySelectorAll('picture')];
-  images.forEach((image) => {
-    const html = image.outerHTML;
+  images.forEach((picture) => {
+    const { innerHTML } = picture;
     const div = document.createElement('div');
-    image.replaceWith(div);
+    picture.replaceWith(div);
 
     render.render(Image, {
-      dangerouslySetInnerHTML: { __html: html },
+      children: h('picture', { dangerouslySetInnerHTML: { __html: innerHTML } }),
     })(div);
   });
 }
@@ -504,7 +505,7 @@ export function decorateImages(element) {
 export function decorateLinks(element) {
   const links = [...element.querySelectorAll('a')];
   links.forEach((anchor) => {
-    const { href, text, title = anchor.textContent} = anchor;
+    const { href, text, title = anchor.textContent } = anchor;
     const span = document.createElement('span');
     anchor.replaceWith(span);
 
