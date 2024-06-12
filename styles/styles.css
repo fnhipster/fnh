@@ -77,8 +77,6 @@ body.appear {
 
 main {
   flex-grow: 1;
-  font: var(--font);
-  color: var(--color-fg);
   font-size: 1.6rem;
 }
 
