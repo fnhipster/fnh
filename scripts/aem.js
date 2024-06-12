@@ -12,10 +12,6 @@
 
 /* eslint-env browser */
 
-import { h } from "@dropins/tools/preact.js";
-import { render } from "@fnhipster/ui/render.js";
-import { Image, Link } from '@fnhipster/ui/components.js';
-
 /**
  * log RUM if part of the sample.
  * @param {string} checkpoint identifies the checkpoint in funnel
@@ -426,6 +422,15 @@ function wrapTextNodes(block) {
 }
 
 /**
+ * Decorate main
+ */
+export function decorateContent(main) {
+  const content = document.createElement('fn-content');
+  main.before(content);
+  content.append(main);
+}
+
+/**
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
  */
@@ -488,13 +493,9 @@ function decorateIcon(span, prefix = '', alt = '') {
 export function decorateImages(element) {
   const images = [...element.querySelectorAll('picture')];
   images.forEach((picture) => {
-    const { innerHTML } = picture;
-    const div = document.createElement('div');
-    picture.replaceWith(div);
-
-    render.render(Image, {
-      children: h('picture', { dangerouslySetInnerHTML: { __html: innerHTML } }),
-    })(div);
+    const component = document.createElement('fn-image');
+    picture.after(component);
+    component.append(picture);
   });
 }
 
@@ -505,15 +506,12 @@ export function decorateImages(element) {
 export function decorateLinks(element) {
   const links = [...element.querySelectorAll('a')];
   links.forEach((anchor) => {
-    const { href, text, title = anchor.textContent } = anchor;
-    const span = document.createElement('span');
-    anchor.replaceWith(span);
-
-    render.render(Link, {
-      children: text,
-      href,
-      title,
-    })(span);
+    const component = document.createElement('fn-link');
+    const { href, target, textContent } = anchor;
+    if (href) component.setAttribute('href', href);
+    if (target) component.setAttribute('target', target);
+    component.textContent = textContent;
+    anchor.replaceWith(component);
   });
 }
 

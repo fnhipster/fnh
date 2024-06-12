@@ -1,9 +1,12 @@
+/* eslint-disable import/no-unresolved */
+import '@fnhipster/fn-ui/components/index.js';
+
 import {
   sampleRUM,
   buildBlock,
   loadHeader,
   loadFooter,
-  decorateButtons,
+  decorateContent,
   decorateIcons,
   decorateImages,
   decorateLinks,
@@ -14,8 +17,6 @@ import {
   loadBlocks,
   loadCSS,
 } from './aem.js';
-
-import './dropins.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -65,8 +66,7 @@ function buildAutoBlocks(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  // hopefully forward compatible button decoration
-  decorateButtons(main);
+  decorateContent(main);
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
@@ -86,7 +86,6 @@ async function loadEager(doc) {
   if (main) {
     decorateMain(main);
     document.body.classList.add('appear');
-    document.body.classList.add('dropin-design');
     await waitForLCP(LCP_BLOCKS);
   }
 
