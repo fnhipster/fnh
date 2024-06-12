@@ -427,7 +427,8 @@ function wrapTextNodes(block) {
 export function decorateContent(main) {
   const content = document.createElement('fn-content');
   main.before(content);
-  content.append(main);
+  content.append(...main.children);
+  main.append(content);
 }
 
 /**
