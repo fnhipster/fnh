@@ -9,5 +9,5 @@ export default async function decorate(block) {
 
   wrapper.append(image, title);
 
-  block.append(wrapper);
+  block.replaceWith(wrapper);
 }

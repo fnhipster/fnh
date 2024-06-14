@@ -6,7 +6,6 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
-  decorateContent,
   decorateIcons,
   decorateImages,
   decorateLinks,
@@ -66,7 +65,6 @@ function buildAutoBlocks(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  decorateContent(main);
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);

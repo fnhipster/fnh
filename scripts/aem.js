@@ -422,16 +422,6 @@ function wrapTextNodes(block) {
 }
 
 /**
- * Decorate main
- */
-export function decorateContent(main) {
-  const content = document.createElement('fn-content');
-  main.before(content);
-  content.append(...main.children);
-  main.append(content);
-}
-
-/**
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
  */
@@ -495,8 +485,9 @@ export function decorateImages(element) {
   const images = [...element.querySelectorAll('picture')];
   images.forEach((picture) => {
     const component = document.createElement('fn-image');
-    picture.after(component);
-    component.append(picture);
+    // wrap picture in fn-image
+    component.append(picture.cloneNode(true));
+    picture.replaceWith(component);
   });
 }
 
