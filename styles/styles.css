@@ -26,3 +26,9 @@ header {
 main {
   flex-grow: 1;
 }
+
+@media (width >= 650px) {
+  header {
+    height: 5.5rem;
+  }
+}

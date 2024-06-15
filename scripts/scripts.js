@@ -87,9 +87,6 @@ async function loadEager(doc) {
     await waitForLCP(LCP_BLOCKS);
   }
 
-  loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
-
   try {
     /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
     if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
@@ -111,6 +108,9 @@ async function loadLazy(doc) {
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
+
+  loadHeader(doc.querySelector('header'));
+  loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
